@@ -69,7 +69,38 @@ class CompanyServices:
             db.session.commit()
 
             return None
+        except IntegrityError as err:
+            return err
         except Exception as ex:
             return ex
+
+    @classmethod
+    def update_company(cls, company_id, company_info):
+        try:
+            company = Company.query.filter_by(id=company_id).first()
+
+            if company is None:
+                raise Exception(ErrorDefine.COMPANY_NOT_FOUND)
+
+            company.name = company_info['name']
+            company.slug = company_info['slug']
+            company.website = company_info['website']
+            company.size = company_info['size']
+            company.rating = company_info['rating']
+            company.bio = company_info['bio']
+            company.overview = company_info['overview']
+            company.email = company_info['email']
+            company.address = company_info['address']
+            company.google_map = company_info['google_map']
+            company.job_count = company_info['job_count']
+            company.review_count = company_info['review_count']
+            company.type_id = company_info['type_id']
+
+            db.session.commit()
+
+            company_schema = CompanySchema()
+            return company_schema.dump(company)
+        except Exception as (ex):
+            raise ex.message
 
 

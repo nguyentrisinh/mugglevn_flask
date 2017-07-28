@@ -1,5 +1,5 @@
 from flask import request
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy import exc
 from flask_restful import Resource
 from ..services import CompanyServices
 from .api_base import ApiBase
@@ -53,10 +53,25 @@ class Company(Resource, ApiBase):
             error = CompanyServices.delete_company(company_id)
 
             if error is not None:
+                if type(error) is exc.IntegrityError:
+                    raise exc.SQLAlchemyError(error.message)
+
                 raise Exception(error.message)
 
             result = 'Delete company\'s {} successfully'.format(company_id)
 
+            return ApiBase.as_success(result)
+
+        except exc.SQLAlchemyError as err:
+            return ApiBase.as_error(err)
+
+        except Exception as ex:
+            return ApiBase.as_error(ex)
+
+    @staticmethod
+    def put(company_id):
+        try:
+            result = CompanyServices.update_company(company_id, request.get_json(force=True))
             return ApiBase.as_success(result)
         except Exception as ex:
             return ApiBase.as_error(ex)

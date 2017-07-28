@@ -11,4 +11,5 @@ class ErrorDefine:
     # 11xx: Error company
     COMPANY_NOT_FOUND = {"errorMessage": "Company not found", "errorCode": 1100}
 
-    # 11xx: Error School
+    # 12xx: Error CompanyType
+    COMPANY_TYPE_NOT_FOUND = {"errorMessage": "CompanyType not found", "errorCode": 1200}

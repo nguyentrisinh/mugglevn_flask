@@ -1,3 +1,4 @@
+from sqlalchemy import exc
 
 class ApiBase:
     def __init__(self):
@@ -26,22 +27,29 @@ class ApiBase:
             }
 
         if type(errors) is Exception:
-            if type(errors.message) is str:
-                return {
-                    "data": data,
-                    "errors": [
-                        {"errorMessage": errors.message, "errorCode": 9999}
-                    ]
-                }
+            return ApiBase.return_message(data, errors, 9999)
 
+        if type(errors) is exc.SQLAlchemyError:
+            return ApiBase.return_message(data, errors, 1101)
+
+        return {
+            "data": data,
+            "errors": [errors]
+        }
+
+    @staticmethod
+    def return_message(data, errors, error_code):
+        if type(errors.message) is str:
             return {
                 "data": data,
                 "errors": [
-                    errors.message
+                    {"errorMessage": errors.message, "errorCode": error_code}
                 ]
             }
 
         return {
             "data": data,
-            "errors": [errors]
+            "errors": [
+                errors.message
+            ]
         }
