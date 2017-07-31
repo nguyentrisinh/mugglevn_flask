@@ -16,3 +16,6 @@ class ErrorDefine:
 
     # 13xx: Error Skill
     SKILL_NOT_FOUND = {"errorMessage": "Skill not found", "errorCode": 1300}
+
+    # 14xx: Error Benefit
+    BENEFIT_NOT_FOUND = {"errorMessage": "Benefit not found", "errorCode": 1400}
