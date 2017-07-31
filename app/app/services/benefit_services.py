@@ -53,3 +53,19 @@ class BenefitServices:
         db.session.commit()
 
         return {}
+
+    @classmethod
+    def update(cls, benefit_id, benefit_info):
+        benefit = Benefit.query.filter_by(id=benefit_id).first()
+
+        if benefit is None:
+            raise Exception(ErrorDefine.BENEFIT_NOT_FOUND)
+
+        benefit.name = benefit_info['name']
+
+        db.session.commit()
+
+        benefit_schema = BenefitSchema()
+
+        result = benefit_schema.dump(benefit)
+        return result.data

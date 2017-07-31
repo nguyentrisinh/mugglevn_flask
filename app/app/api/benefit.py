@@ -36,6 +36,7 @@ class Benefits(Resource, ApiBase):
         except Exception as ex:
             return ApiBase.as_error(ex)
 
+
 class Benefit(Resource, ApiBase):
 
     @staticmethod
@@ -51,5 +52,13 @@ class Benefit(Resource, ApiBase):
         try:
             BenefitServices.delete(benefit_id)
             return ApiBase.as_success('Delete benefit\'s {} successfully'.format(benefit_id))
+        except Exception as ex:
+            return ApiBase.as_error(ex)
+
+    @staticmethod
+    def put(benefit_id):
+        try:
+            result = BenefitServices.update(benefit_id, request.get_json(force=True))
+            return ApiBase.as_success(result)
         except Exception as ex:
             return ApiBase.as_error(ex)
