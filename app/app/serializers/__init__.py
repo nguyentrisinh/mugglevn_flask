@@ -7,3 +7,4 @@ ma = Marshmallow(app)
 from .user_schema import UserSchema
 from .company_schema import CompanySchema
 from .company_type_schema import CompanyTypeSchema
+from .skill_schema import SkillSchema

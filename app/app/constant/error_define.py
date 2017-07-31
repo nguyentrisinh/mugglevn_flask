@@ -13,3 +13,6 @@ class ErrorDefine:
 
     # 12xx: Error CompanyType
     COMPANY_TYPE_NOT_FOUND = {"errorMessage": "CompanyType not found", "errorCode": 1200}
+
+    # 13xx: Error Skill
+    SKILL_NOT_FOUND = {"errorMessage": "Skill not found", "errorCode": 1300}

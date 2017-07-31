@@ -39,11 +39,19 @@ class CompanyTypes(Resource):
 class CompanyType(Resource):
 
     @staticmethod
+    def get(type_id):
+        try:
+            result = CompanyTypeServices.get_by_id(type_id)
+            return ApiBase.as_success(result)
+        except Exception as ex:
+            return ApiBase.as_error(ex)
+
+    @staticmethod
     def delete(type_id):
         try:
-             CompanyTypeServices.delete_type(type_id)
-             result = 'Delete CompanyType\'s {} successfully'.format(type_id)
-             return ApiBase.as_success(result)
+            CompanyTypeServices.delete_type(type_id)
+            result = 'Delete CompanyType\'s {} successfully'.format(type_id)
+            return ApiBase.as_success(result)
         except Exception as ex:
             return ApiBase.as_error(ex)
 

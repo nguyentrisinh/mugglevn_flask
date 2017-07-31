@@ -15,6 +15,17 @@ class CompanyTypeServices:
         return result.data
 
     @classmethod
+    def get_by_id(cls, type_id):
+        company_type = CompanyType.query.filter_by(id=type_id).first()
+
+        if company_type is None:
+            raise Exception(ErrorDefine.COMPANY_TYPE_NOT_FOUND)
+
+        company_type_schema = CompanyTypeSchema()
+        result = company_type_schema.dump(company_type)
+        return result.data
+
+    @classmethod
     def insert_type(cls, company_type_info):
         company_type_schema = CompanyTypeSchema()
         company_type = CompanyType()
