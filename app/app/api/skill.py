@@ -46,4 +46,19 @@ class Skill(Resource, ApiBase):
         except Exception as ex:
             return ApiBase.as_error(ex)
 
+    @staticmethod
+    def delete(skill_id):
+        try:
+            SkillServices.delete_skill(skill_id)
+            return ApiBase.as_success('Delete skill\'s {} successfully'.format(skill_id))
+        except Exception as ex:
+            return ApiBase.as_error(ex)
+
+    @staticmethod
+    def put(skill_id):
+        try:
+            result = SkillServices.update_skill(skill_id, request.get_json(force=True))
+            return ApiBase.as_success(result)
+        except Exception as ex:
+            return ApiBase.as_error(ex)
 

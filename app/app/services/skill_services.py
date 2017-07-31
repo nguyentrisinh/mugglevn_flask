@@ -43,5 +43,33 @@ class SkillServices:
 
         return skill_schema.dump(skill).data
 
+    @classmethod
+    def delete_skill(cls, skill_id):
+        skill = Skill.query.filter_by(id=skill_id).first()
+
+        if skill is None:
+            raise Exception(ErrorDefine.SKILL_NOT_FOUND)
+
+        db.session.delete(skill)
+        db.session.commit()
+
+        return {}
+
+    @classmethod
+    def update_skill(cls, skill_id, skill_info):
+        skill = Skill.query.filter_by(id=skill_id).first()
+
+        if skill is None:
+            raise Exception(ErrorDefine.SKILL_NOT_FOUND)
+
+        skill.name = skill_info['name']
+        skill.info = skill_info['info']
+
+        db.session.commit()
+
+        skill_schema = SkillSchema()
+        return skill_schema.dump(skill).data
+
+
 
 
