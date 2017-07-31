@@ -5,6 +5,7 @@ from .company import CompanyRouters
 from .company_type import CompanyTypeRoutes
 from .skill import SkillRoutes
 from .file import FileRoutes
+from .benefit import BenefitRoutes
 
 api_bp = Blueprint('api', __name__)
 
@@ -15,4 +16,4 @@ CompanyRouters(api, '/companies')
 CompanyTypeRoutes(api, '/company_types')
 SkillRoutes(api, '/skills')
 FileRoutes(api, '/files')
-
+BenefitRoutes(api, '/benefits')
