@@ -4,7 +4,7 @@ from .api_base import ApiBase
 from ..services import SkillServices
 
 
-class SkillRoutes():
+class SkillRoutes:
     prefix = ''
 
     def build_url(self, url):

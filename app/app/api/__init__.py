@@ -4,6 +4,7 @@ from .user import UserRouters
 from .company import CompanyRouters
 from .company_type import CompanyTypeRoutes
 from .skill import SkillRoutes
+from .file import FileRoutes
 
 api_bp = Blueprint('api', __name__)
 
@@ -13,4 +14,5 @@ UserRouters(api, '/users')
 CompanyRouters(api, '/companies')
 CompanyTypeRoutes(api, '/company_types')
 SkillRoutes(api, '/skills')
+FileRoutes(api, '/files')
 

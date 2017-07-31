@@ -43,6 +43,9 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = get_env_variable('DATABASE_URL')
     APP_SETTINGS = get_env_variable('APP_SETTINGS')
 
+    # UPLOAD_FOLDER = '/path/to/the/uploads'
+    UPLOAD_FOLDER = '{}{}'.format(basedir, '/image')
+
     @staticmethod
     def init_app(app):
         pass
