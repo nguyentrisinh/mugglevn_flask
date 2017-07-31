@@ -14,17 +14,14 @@ class FileRoutes:
         self.prefix = prefix
 
         api.add_resource(File, self.build_url(''))
-        # api.add_resource(Skill, self.build_url('/<int:skill_id>'))
 
 
 class File(Resource, ApiBase):
-    def __init__(self):
-        pass
 
     @staticmethod
     def post():
         try:
-            result = FileServices.upload_file(request)
+            result = FileServices.upload_file('/users/avatar/1', request)
             return ApiBase.as_success(result)
         except Exception as ex:
             return ApiBase.as_error(ex)

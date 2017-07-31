@@ -18,12 +18,14 @@ class User(db.Model):
     faculty_name = db.Column(db.String(120), nullable=True)
     address = db.Column(db.String(120), nullable=True)
 
+    avatar = db.Column(db.String())
+
     def __init__(self, **kwargs):
         for key, value in kwargs.items():
             setattr(self, key, value)
 
     def init_user(self, username, password, first_name, last_name,
-                  birth_date, email, university_name, major_name, faculty_name, address):
+                  birth_date, email, university_name, major_name, faculty_name, address, avatar):
         self.username = username
         self.password = password
         self.first_name = first_name
@@ -34,6 +36,7 @@ class User(db.Model):
         self.major_name = major_name
         self.faculty_name = faculty_name
         self.address = address
+        self.avatar = avatar
 
     def __repr__(self):
         return '<id {}>'.format(self.id)

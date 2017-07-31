@@ -1,5 +1,4 @@
 import os
-from flask import redirect, url_for
 from werkzeug.utils import secure_filename
 from .. import Config
 
@@ -17,7 +16,7 @@ class FileServices:
                filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
     @classmethod
-    def upload_file(cls, request):
+    def upload_file(cls, path, request):
         # check if the post request has the file part
         if 'file' not in request.files:
             print 'No file part'
@@ -34,13 +33,24 @@ class FileServices:
 
         if file_upload and cls.allowed_file(file_upload.filename):
             filename = secure_filename(file_upload.filename)
-            print os.path.join(Config.UPLOAD_FOLDER, filename)
-            file_upload.save(os.path.join(Config.UPLOAD_FOLDER, filename))
 
-            # return redirect(url_for('uploaded_file',
-            #                         filename=filename))
-            # return {"content": "{}".format(redirect(url_for('upload_file', filename=filename)))}
+            # Create a full path of the storage that upload image in it
+            full_path = '{}{}'.format(Config.UPLOAD_FOLDER, path)
 
-            return {"content": "Hello world"}
+            cls.check_folder(full_path)
+
+            # Save the file in to correct path
+            file_upload.save(os.path.join(full_path, filename))
+
+            return {"content": os.path.join(full_path, filename)}
 
         return {"content": "final return"}
+
+    # This method use to check full_path have already had dictionary or not
+    # If not, this method will create a folder in it (just create a FINAL folder)
+    # If parent folder doesn't have it will catch error
+    @staticmethod
+    def check_folder(full_path):
+
+        if os.path.isdir(full_path) is False:
+            os.mkdir(full_path)

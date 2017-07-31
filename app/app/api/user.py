@@ -15,6 +15,7 @@ class UserRouters:
 
         api.add_resource(Users, self.build_url(''))
         api.add_resource(UsersById, self.build_url('/<int:user_id>'))
+        api.add_resource(UsersAvatar, self.build_url('/avatar/<int:user_id>'))
 
 
 class Users(Resource, ApiBase):
@@ -60,3 +61,16 @@ class UsersById(Resource, ApiBase):
             return ApiBase.as_success(result)
         except Exception as ex:
             return ApiBase.as_error(ex)
+
+
+class UsersAvatar(Resource, ApiBase):
+
+    @staticmethod
+    def post(user_id):
+        try:
+            result = UserServices.upload_avatar(user_id, request)
+            return ApiBase.as_success(result)
+        except Exception as ex:
+            ApiBase.as_error(ex)
+
+

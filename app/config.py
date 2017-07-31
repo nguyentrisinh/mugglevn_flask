@@ -1,7 +1,7 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-#
+
 def get_env_variable(var_name, default=False):
     """
     Get the environment variable or return exception

@@ -15,11 +15,10 @@ from admin import *
 
 
 def create_app():
-    print basedir
     app = Flask(__name__)
     app.config.from_object(Config.APP_SETTINGS)
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['UPLOAD_FOLDER'] = os.path.join(basedir, '/image')
+    # app.config['UPLOAD_FOLDER'] = os.path.join(basedir, '/image')
 
     Config.init_app(app)
 
