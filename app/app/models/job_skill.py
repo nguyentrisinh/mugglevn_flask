@@ -24,3 +24,9 @@ class JobSkill(db.Model):
         if self.skill is None:
             return '{}'.format(self.job.name)
         return '{}-{}'.format(self.job.name, self.skill.name)
+
+    def init_job_skill(self, job_id, skill_id, description):
+        self.job_id = job_id
+        self.skill_id = skill_id
+        self.description = description
+

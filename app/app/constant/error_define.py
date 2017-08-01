@@ -22,3 +22,6 @@ class ErrorDefine:
 
     # 15xx: Error Review
     REVIEW_NOT_FOUND = {"errorMessage": "Review not found", "errorCode": 1500}
+
+    # 16xx: Error JobSkill
+    JOB_SKILL_NOT_FOUND = {"errorMessage": "JobSkill not found", "errorCode": 1600}
