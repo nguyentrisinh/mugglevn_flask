@@ -88,7 +88,7 @@ class ReviewServices:
         review = Review.query.filter_by(company_id=company_id)
 
         review_schema = ReviewSchema(many=True, only=['id', 'author_id', 'title', 'what_user_like', 'created_at',
-                                                      'what_user_dislike', 'rating'])
+                                                      'what_user_dislike', 'rating', 'updated_at'])
 
         result = review_schema.dump(review)
 
