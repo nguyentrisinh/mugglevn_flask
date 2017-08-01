@@ -16,7 +16,7 @@ class Job(db.Model):
     # skills = db.relationship('JobSkill', backref='job',
     #                          lazy='dynamic')
     skills = db.relationship('JobSkill', back_populates='job',
-                             lazy='dynamic')
+                             lazy='dynamic', cascade="all, delete-orphan")
 
     # Test~~~~~~~~~~~~~~~~~~~
     # skills = db.relationship("JobSkill", back_populates="skill")
