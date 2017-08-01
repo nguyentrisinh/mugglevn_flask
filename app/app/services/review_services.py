@@ -20,6 +20,19 @@ class ReviewServices:
         return result.data
 
     @classmethod
+    def get_by_id(cls, review_id):
+        review = Review.query.filter_by(id=review_id).first()
+
+        if review is None:
+            raise Exception(ErrorDefine.REVIEW_NOT_FOUND)
+
+        review_schema = ReviewSchema()
+
+        result = review_schema.dump(review)
+
+        return result.data
+
+    @classmethod
     def insert(cls, review_info):
 
         title = review_info['title']
@@ -51,3 +64,32 @@ class ReviewServices:
         db.session.commit()
 
         return {}
+
+    @classmethod
+    def update(cls, review_id, review_info):
+        review = Review.query.filter_by(id=review_id).first()
+
+        if review is None:
+            raise Exception(ErrorDefine.REVIEW_NOT_FOUND)
+
+        review.rating = review_info['rating']
+        review.what_user_like = review_info['what_user_like']
+        review.what_user_dislike = review_info['what_user_dislike']
+
+        db.session.commit()
+
+        review_schema = ReviewSchema()
+        result = review_schema.dump(review)
+
+        return result.data
+
+    @classmethod
+    def get_by_company(cls, company_id):
+        review = Review.query.filter_by(company_id=company_id)
+
+        review_schema = ReviewSchema(many=True, only=['id', 'author_id', 'title', 'what_user_like', 'created_at',
+                                                      'what_user_dislike', 'rating'])
+
+        result = review_schema.dump(review)
+
+        return result.data

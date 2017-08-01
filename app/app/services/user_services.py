@@ -10,7 +10,7 @@ class UserServices:
 
     @classmethod
     def get_all(cls):
-        users_schema = UserSchema(many=True, only=['id', 'username', 'first_name'])
+        users_schema = UserSchema(many=True, only=['id', 'username', 'first_name', 'created_at'])
         all_users = User.query.all()
         result = users_schema.dump(all_users)
         return result.data
