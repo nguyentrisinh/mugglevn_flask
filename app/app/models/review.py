@@ -7,7 +7,7 @@ class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255))
     created_at = db.Column(db.DateTime(), default=db.func.now())
-    updated_at = db.Column(db.DateTime(), onupdate=db.func.now())
+    updated_at = db.Column(db.DateTime(), default=db.func.now(), onupdate=db.func.now())
     what_user_like = db.Column(db.Text)
     what_user_dislike = db.Column(db.Text)
     rating = db.Column(db.Float)

@@ -4,7 +4,7 @@ from flask_admin.contrib.sqla import ModelView
 class BenefitView(ModelView):
     page_size = 50
     # Show only name and email columns in list view
-    column_list = ('id', 'name')
+    column_list = ('id', 'name', 'created_at', 'updated_at')
 
     # Enable search functionality - it will search for terms in
     # name and email fields

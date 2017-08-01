@@ -2,6 +2,7 @@ from sqlalchemy.exc import IntegrityError
 from ..models import db, Company
 from ..serializers import CompanySchema
 from ..constant import ErrorDefine
+from .file_services import FileServices
 
 
 class CompanyServices:
@@ -101,6 +102,24 @@ class CompanyServices:
             company_schema = CompanySchema()
             return company_schema.dump(company)
         except Exception as (ex):
-            raise ex.message
+            raise ex
+
+    @classmethod
+    def upload_avatar(cls, company_id, request):
+        company = Company.query.filter_by(id=company_id).first()
+
+        if company is None:
+            raise Exception(ErrorDefine.COMPANY_NOT_FOUND)
+
+        avatar_path = FileServices.upload_file('/companies/avatar/{}'.format(company_id), request)
+
+        print avatar_path
+        company.avatar = avatar_path['content']
+        db.session.commit()
+
+        company_schema = CompanySchema()
+        result = company_schema.dump(company)
+
+        return result.data
 
 

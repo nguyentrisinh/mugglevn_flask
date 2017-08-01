@@ -19,3 +19,6 @@ class ErrorDefine:
 
     # 14xx: Error Benefit
     BENEFIT_NOT_FOUND = {"errorMessage": "Benefit not found", "errorCode": 1400}
+
+    # 15xx: Error Review
+    REVIEW_NOT_FOUND = {"errorMessage": "Review not found", "errorCode": 1500}

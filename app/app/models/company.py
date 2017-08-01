@@ -19,6 +19,7 @@ class Company(db.Model):
     review_count = db.Column(db.Integer)
     created_at = db.Column(db.DateTime(), default=db.func.now())
     updated_at = db.Column(db.DateTime(), onupdate=db.func.now())
+    avatar = db.Column(db.String(512))
     type_id = db.Column(db.Integer, db.ForeignKey('company_type.id'))
 
     type = db.relationship("CompanyType", foreign_keys=type_id)

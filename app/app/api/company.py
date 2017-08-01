@@ -16,6 +16,7 @@ class CompanyRouters:
 
         api.add_resource(Companies, self.build_url(''))
         api.add_resource(Company, self.build_url('/<int:company_id>'))
+        api.add_resource(CompanyAvatar, self.build_url('/avatar/<int:company_id>'))
 
 
 class Companies(Resource, ApiBase):
@@ -72,6 +73,17 @@ class Company(Resource, ApiBase):
     def put(company_id):
         try:
             result = CompanyServices.update_company(company_id, request.get_json(force=True))
+            return ApiBase.as_success(result)
+        except Exception as ex:
+            return ApiBase.as_error(ex)
+
+
+class CompanyAvatar(Resource, ApiBase):
+
+    @staticmethod
+    def post(company_id):
+        try:
+            result = CompanyServices.upload_avatar(company_id, request)
             return ApiBase.as_success(result)
         except Exception as ex:
             return ApiBase.as_error(ex)

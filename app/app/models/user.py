@@ -10,7 +10,7 @@ class User(db.Model):
     first_name = db.Column(db.String())
     last_name = db.Column(db.String())
     created_at = db.Column(db.DateTime(), default=db.func.now())
-    updated_at = db.Column(db.DateTime(), onupdate=db.func.now())
+    updated_at = db.Column(db.DateTime(), default=db.func.now(), onupdate=db.func.now())
     birth_date = db.Column(db.DateTime())
     email = db.Column(db.String(120), nullable=True)
     university_name = db.Column(db.String(120), nullable=True)
