@@ -10,14 +10,8 @@ class Skill(db.Model):
     created_at = db.Column(db.DateTime(), default=db.func.now())
     updated_at = db.Column(db.DateTime(), default=db.func.now(), onupdate=db.func.now())
 
-    # jobs = db.relationship('JobSkill', backref='skills',
-    #                        lazy='dynamic')
-
     jobs = db.relationship('JobSkill', back_populates='skill',
                            lazy='dynamic', cascade="all, delete-orphan")
-
-    # Test~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    # jobs = db.relationship("JobSkill", back_populates="job")
 
     def __init__(self, **kwargs):
         for key, value in kwargs.items():

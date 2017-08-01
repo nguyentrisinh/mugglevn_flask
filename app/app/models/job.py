@@ -13,13 +13,10 @@ class Job(db.Model):
     company_id = db.Column(db.Integer, db.ForeignKey('companies.id'))
     description = db.Column(db.Text)
 
-    # skills = db.relationship('JobSkill', backref='job',
-    #                          lazy='dynamic')
     skills = db.relationship('JobSkill', back_populates='job',
-                             lazy='dynamic', cascade="all, delete-orphan")
-
-    # Test~~~~~~~~~~~~~~~~~~~
-    # skills = db.relationship("JobSkill", back_populates="skill")
+                             lazy='dynamic', cascade='all, delete-orphan')
+    benefits = db.relationship('JobBenefit', back_populates='job',
+                               lazy='dynamic', cascade='all, delete-orphan')
 
     def __init__(self, **kwargs):
         for key, value in kwargs.items():
