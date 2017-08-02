@@ -15,6 +15,7 @@ class JobBenefitRoutes:
 
         api.add_resource(JobBenefits, self.build_url(''))
         api.add_resource(JobBenefit, self.build_url('/<int:job_benefit_id>'))
+        api.add_resource(JobToBenefit, self.build_url('/job/<int:job_id>'))
 
 
 class JobBenefits(Resource, ApiBase):
@@ -61,3 +62,15 @@ class JobBenefit(Resource, ApiBase):
             return ApiBase.as_success(result)
         except Exception as ex:
             return ApiBase.as_error(ex)
+
+
+class JobToBenefit(Resource, ApiBase):
+
+    @staticmethod
+    def get(job_id):
+        try:
+            result = JobBenefitServices.get_by_job_id(job_id)
+            return ApiBase.as_success(result)
+        except Exception as ex:
+            return ApiBase.as_error(ex)
+

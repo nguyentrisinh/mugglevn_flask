@@ -1,7 +1,8 @@
-from ..models import db, JobSkill, Job, Skill
+from ..models import db, Job
 from ..serializers import JobSchema
 from ..constant import ErrorDefine
 from . import JobSkillServices, CompanyServices
+from.job_benefit_services import JobBenefitServices
 
 
 class JobServices:
@@ -19,6 +20,7 @@ class JobServices:
         for result in results.data:
             result['skill'] = JobSkillServices.get_by_job_id(result['id'])
             result['company'] = CompanyServices.get_by_id(result['company_id'])
+            result['benefit'] = JobBenefitServices.get_by_job_id(result['id'])
 
         return results.data
 
@@ -35,15 +37,9 @@ class JobServices:
 
         result.data['skill'] = JobSkillServices.get_by_job_id(result.data['id'])
         result.data['company'] = CompanyServices.get_by_id(result.data['company_id'])
+        result.data['benefit'] = JobBenefitServices.get_by_job_id(result.data['id'])
 
         return result.data
-    # name = db.Column(db.String(512))
-    # created_at = db.Column(db.DateTime(), default=db.func.now())
-    # updated_at = db.Column(db.DateTime(), default=db.func.now(), onupdate=db.func.now())
-    # expired_at = db.Column(db.DateTime())
-    # is_full_time = db.Column(db.Boolean)
-    # company_id = db.Column(db.Integer, db.ForeignKey('companies.id'))
-    # description = db.Column(db.Text)
 
     @classmethod
     def insert(cls, job_info):

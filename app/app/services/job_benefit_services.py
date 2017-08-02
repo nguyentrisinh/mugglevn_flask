@@ -34,6 +34,19 @@ class JobBenefitServices:
         return result.data
 
     @classmethod
+    def get_by_job_id(cls, job_id):
+        job_benefit = JobBenefit.query.filter_by(id=job_id)
+
+        job_benefit_schema = JobBenefitSchema(many=True)
+
+        results = job_benefit_schema.dump(job_benefit)
+
+        for result in results.data:
+            result['benefit'] = BenefitServices.get_by_id(result['benefit_id'])
+
+        return results.data
+
+    @classmethod
     def insert(cls, job_benefit_info):
 
         job_id = job_benefit_info['job_id']

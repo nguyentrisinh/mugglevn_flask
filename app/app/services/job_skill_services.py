@@ -49,9 +49,6 @@ class JobSkillServices:
 
     @classmethod
     def get_by_job_id(cls, job_id):
-        # job_skill = JobSkill.query.filter_by(job_id=job_id)
-
-        # job_skill = JobSkill.query.join(Skill).filter_by(job_id=job_id)
         job_skill = JobSkill.query.filter_by(job_id=job_id)
         job_skill_schema = JobSkillSchema(many=True, only=['skill_id', 'description'])
 
