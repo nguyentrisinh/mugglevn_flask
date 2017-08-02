@@ -28,6 +28,14 @@ class Jobs(Resource, ApiBase):
         except Exception as ex:
             return ApiBase.as_error(ex)
 
+    @staticmethod
+    def post():
+        try:
+            result = JobServices.insert(request.get_json(force=True))
+            return ApiBase.as_success(result)
+        except Exception as ex:
+            return ApiBase.as_error(ex)
+
 
 class Job(Resource, ApiBase):
 
@@ -39,3 +47,19 @@ class Job(Resource, ApiBase):
         except Exception as ex:
             return ApiBase.as_error(ex)
 
+    @staticmethod
+    def delete(job_id):
+        try:
+            JobServices.delete(job_id)
+            result = 'Delete job\'s {} successfully'.format(job_id)
+            return ApiBase.as_success(result)
+        except Exception as ex:
+            return ApiBase.as_error(ex)
+
+    @staticmethod
+    def put(job_id):
+        try:
+            result = JobServices.update(job_id, request.get_json(force=True))
+            return ApiBase.as_success(result)
+        except Exception as ex:
+            return ApiBase.as_error(ex)

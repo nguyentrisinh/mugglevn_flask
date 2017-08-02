@@ -25,3 +25,9 @@ class Job(db.Model):
     def __unicode__(self):
         return self.name
 
+    def init_job(self, name, expired_at, is_full_time, company_id, description):
+        self.name = expired_at
+        self.is_full_time = is_full_time
+        self.company_id = company_id
+        self.description = description
+

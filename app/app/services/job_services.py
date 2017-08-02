@@ -37,4 +37,62 @@ class JobServices:
         result.data['company'] = CompanyServices.get_by_id(result.data['company_id'])
 
         return result.data
+    # name = db.Column(db.String(512))
+    # created_at = db.Column(db.DateTime(), default=db.func.now())
+    # updated_at = db.Column(db.DateTime(), default=db.func.now(), onupdate=db.func.now())
+    # expired_at = db.Column(db.DateTime())
+    # is_full_time = db.Column(db.Boolean)
+    # company_id = db.Column(db.Integer, db.ForeignKey('companies.id'))
+    # description = db.Column(db.Text)
 
+    @classmethod
+    def insert(cls, job_info):
+
+        name = job_info['name']
+        expired_at = job_info['expired_at']
+        is_full_time = job_info['is_full_time']
+        company_id = job_info['company_id']
+        description = job_info['description']
+
+        job = Job()
+        job.init_job(name, expired_at, is_full_time, company_id, description)
+
+        db.session.add(job)
+        db.session.commit()
+
+        job_schema = JobSchema()
+        result = job_schema.dump(job)
+
+        return result.data
+
+    @classmethod
+    def update(cls, job_id, job_info):
+        job = Job.query.filter_by(id=job_id).first()
+
+        if job is None:
+            raise Exception(ErrorDefine.JOB_NOT_FOUND)
+
+        job.name = job_info['name']
+        job.expired_at = job_info['expired_at']
+        job.is_full_time = job_info['is_full_time']
+        job.company_id = job_info['company_id']
+        job.description = job_info['description']
+
+        db.session.commit()
+
+        job_schema = JobSchema()
+        result = job_schema.dump(job)
+
+        return result.data
+
+    @classmethod
+    def delete(cls, job_id):
+        job = Job.query.filter_by(id=job_id).first()
+
+        if job is None:
+            raise Exception(ErrorDefine.JOB_NOT_FOUND)
+
+        db.session.delete(job)
+        db.session.commit()
+
+        return {}
