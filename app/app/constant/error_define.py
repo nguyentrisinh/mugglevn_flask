@@ -29,3 +29,6 @@ class ErrorDefine:
     # 17xx: Error Job
     JOB_NOT_FOUND = {"errorMessage": "Job not found", "errorCode": 1700}
 
+    # 18xx: Error JobBenefit
+    JOB_BENEFIT_NOT_FOUND = {"errorMessage": "JobBenefit not found", "errorCode": 1800}
+

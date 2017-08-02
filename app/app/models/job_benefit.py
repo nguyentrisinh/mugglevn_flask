@@ -24,3 +24,9 @@ class JobBenefit(db.Model):
         if self.benefit is None:
             return '{}'.format(self.job.name)
         return '{}-{}'.format(self.job.name, self.benefit.name)
+
+    def init_job_benefit(self, job_id, benefit_id, description):
+        self.job_id = job_id
+        self.benefit_id = benefit_id
+        self.description = description
+

@@ -12,3 +12,4 @@ from .benefit_schema import BenefitSchema
 from .review_schema import ReviewSchema
 from .job_skill_schema import JobSkillSchema
 from .job_schema import JobSchema
+from .job_benefit_schema import JobBenefitSchema
