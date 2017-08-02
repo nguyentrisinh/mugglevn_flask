@@ -23,6 +23,8 @@ class Company(db.Model):
     type_id = db.Column(db.Integer, db.ForeignKey('company_type.id'))
 
     type = db.relationship("CompanyType", foreign_keys=type_id)
+    jobs = db.relationship('Job', backref='company',
+                           lazy='dynamic')
 
     def __init__(self, **kwargs):
         for key, value in kwargs.items():
