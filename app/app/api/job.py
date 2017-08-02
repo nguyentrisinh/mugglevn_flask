@@ -1,0 +1,41 @@
+from flask import request
+from flask_restful import Resource
+from ..services import JobServices
+from .api_base import ApiBase
+
+
+class JobRoutes:
+    prefix = ''
+
+    def build_url(self, url):
+        return '{}{}'.format(self.prefix, url)
+
+    def __init__(self, api, prefix):
+        self.prefix = prefix
+
+        api.add_resource(Jobs, self.build_url(''))
+        api.add_resource(Job, self.build_url('/<int:job_id>'))
+        # api.add_resource(JobGetSkill, self.build_url('/job/<int:job_id>'))
+
+
+class Jobs(Resource, ApiBase):
+
+    @staticmethod
+    def get():
+        try:
+            result = JobServices.get_all()
+            return ApiBase.as_success(result)
+        except Exception as ex:
+            return ApiBase.as_error(ex)
+
+
+class Job(Resource, ApiBase):
+
+    @staticmethod
+    def get(job_id):
+        try:
+            result = JobServices.get_by_id(job_id)
+            return ApiBase.as_success(result)
+        except Exception as ex:
+            return ApiBase.as_error(ex)
+

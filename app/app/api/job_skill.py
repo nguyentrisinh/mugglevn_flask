@@ -15,6 +15,7 @@ class JobSkillRoutes:
 
         api.add_resource(JobSkills, self.build_url(''))
         api.add_resource(JobSkill, self.build_url('/<int:job_skill_id>'))
+        api.add_resource(JobGetSkill, self.build_url('/job/<int:job_id>'))
 
 
 class JobSkills(Resource, ApiBase):
@@ -47,10 +48,27 @@ class JobSkill(Resource, ApiBase):
             return ApiBase.as_error(ex)
 
     @staticmethod
+    def put(job_skill_id):
+        try:
+            result = JobSkillServices.update(job_skill_id, request.get_json(force=True))
+            return ApiBase.as_success(result)
+        except Exception as ex:
+            return ApiBase.as_error(ex)
+
+    @staticmethod
     def delete(job_skill_id):
         try:
             JobSkillServices.delete(job_skill_id)
             return ApiBase.as_success('Delete JobSkill\'s {} successfully'.format(job_skill_id))
         except Exception as ex:
             return ApiBase.as_error(ex)
+
+
+class JobGetSkill(Resource, ApiBase):
+
+    @staticmethod
+    def get(job_id):
+        result = JobSkillServices.get_by_job_id(job_id)
+        return ApiBase.as_success(result)
+
 

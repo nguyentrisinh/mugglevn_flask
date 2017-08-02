@@ -25,3 +25,7 @@ class ErrorDefine:
 
     # 16xx: Error JobSkill
     JOB_SKILL_NOT_FOUND = {"errorMessage": "JobSkill not found", "errorCode": 1600}
+
+    # 17xx: Error Job
+    JOB_NOT_FOUND = {"errorMessage": "Job not found", "errorCode": 1700}
+

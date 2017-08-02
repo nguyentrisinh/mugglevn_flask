@@ -6,3 +6,4 @@ from .file_services import FileServices
 from .benefit_services import BenefitServices
 from .review_services import ReviewServices
 from .job_skill_services import JobSkillServices
+from .job_services import JobServices

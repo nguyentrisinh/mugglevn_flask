@@ -8,6 +8,7 @@ from .file import FileRoutes
 from .benefit import BenefitRoutes
 from .review import ReviewRoutes
 from .job_skill import JobSkillRoutes
+from .job import JobRoutes
 
 api_bp = Blueprint('api', __name__)
 
@@ -21,3 +22,4 @@ FileRoutes(api, '/files')
 BenefitRoutes(api, '/benefits')
 ReviewRoutes(api, '/reviews')
 JobSkillRoutes(api, '/job_skills')
+JobRoutes(api, '/jobs')
