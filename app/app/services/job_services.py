@@ -56,6 +56,8 @@ class JobServices:
         db.session.add(job)
         db.session.commit()
 
+        cls.update_job_count(company_id)
+
         job_schema = JobSchema()
         result = job_schema.dump(job)
 
@@ -74,6 +76,8 @@ class JobServices:
         job.company_id = job_info['company_id']
         job.description = job_info['description']
 
+        cls.update_job_count(job_info['company_id'])
+
         db.session.commit()
 
         job_schema = JobSchema()
@@ -85,10 +89,23 @@ class JobServices:
     def delete(cls, job_id):
         job = Job.query.filter_by(id=job_id).first()
 
+        company_id = job.company_id
+
         if job is None:
             raise Exception(ErrorDefine.JOB_NOT_FOUND)
 
         db.session.delete(job)
         db.session.commit()
 
+        cls.update_job_count(company_id)
+
         return {}
+
+    @classmethod
+    def update_job_count(cls, company_id):
+        company = CompanyServices.get_object_by_id(company_id)
+        job_count = Job.query.filter_by(company_id=company_id).count()
+
+        company.job_count = job_count
+
+        db.session.commit()

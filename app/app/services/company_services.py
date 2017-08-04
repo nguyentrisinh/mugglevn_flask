@@ -122,4 +122,8 @@ class CompanyServices:
 
         return result.data
 
+    @classmethod
+    def get_object_by_id(cls, company_id):
+        return Company.query.filter_by(id=company_id).first()
+
 
