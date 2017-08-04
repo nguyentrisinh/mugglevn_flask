@@ -15,7 +15,7 @@ class JobRoutes:
 
         api.add_resource(Jobs, self.build_url(''))
         api.add_resource(Job, self.build_url('/<int:job_id>'))
-        # api.add_resource(JobGetSkill, self.build_url('/job/<int:job_id>'))
+        api.add_resource(CompanyToJob, self.build_url('/company/<int:company_id>'))
 
 
 class Jobs(Resource, ApiBase):
@@ -60,6 +60,17 @@ class Job(Resource, ApiBase):
     def put(job_id):
         try:
             result = JobServices.update(job_id, request.get_json(force=True))
+            return ApiBase.as_success(result)
+        except Exception as ex:
+            return ApiBase.as_error(ex)
+
+
+class CompanyToJob(Resource, ApiBase):
+
+    @staticmethod
+    def get(company_id):
+        try:
+            result = JobServices.get_by_company(company_id)
             return ApiBase.as_success(result)
         except Exception as ex:
             return ApiBase.as_error(ex)

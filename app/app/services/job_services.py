@@ -42,6 +42,19 @@ class JobServices:
         return result.data
 
     @classmethod
+    def get_by_company(cls, company_id):
+        jobs = Job.query.filter_by(company_id=company_id)
+
+        job_schema = JobSchema(many=True)
+
+        results = job_schema.dump(jobs)
+
+        for result in results.data:
+            result['skill'] = JobSkillServices.get_by_job_id(result['id'])
+
+        return results.data
+
+    @classmethod
     def insert(cls, job_info):
 
         name = job_info['name']
@@ -109,3 +122,4 @@ class JobServices:
         company.job_count = job_count
 
         db.session.commit()
+
