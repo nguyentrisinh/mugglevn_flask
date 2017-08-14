@@ -1,8 +1,9 @@
 from sqlalchemy.exc import IntegrityError
-from ..models import db, Company
-from ..serializers import CompanySchema
+from ..models import db, Company, Job
+from ..serializers import CompanySchema, JobSchema
 from ..constant import ErrorDefine
 from .file_services import FileServices
+# from .job_services import JobServices
 
 
 class CompanyServices:
@@ -26,6 +27,15 @@ class CompanyServices:
             raise Exception(ErrorDefine.COMPANY_NOT_FOUND)
 
         result = company_schema.dump(company)
+
+        # result.data['jobs'] = JobServices.get_short_info_by_company(company_id)
+        jobs = Job.query.filter_by(company_id=company_id)
+
+        job_schema = JobSchema(many=True, only=['id', 'name', 'description'])
+
+        list_job = job_schema.dump(jobs)
+
+        result.data['jobs'] = list_job.data
 
         return result.data
 
