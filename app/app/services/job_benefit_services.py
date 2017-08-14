@@ -35,7 +35,7 @@ class JobBenefitServices:
 
     @classmethod
     def get_by_job_id(cls, job_id):
-        job_benefit = JobBenefit.query.filter_by(id=job_id)
+        job_benefit = JobBenefit.query.filter_by(job_id=job_id)
 
         job_benefit_schema = JobBenefitSchema(many=True)
 

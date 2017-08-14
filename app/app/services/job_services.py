@@ -35,9 +35,9 @@ class JobServices:
 
         result = job_schema.dump(job)
 
-        result.data['skill'] = JobSkillServices.get_by_job_id(result.data['id'])
+        result.data['skills'] = JobSkillServices.get_by_job_id(result.data['id'])
         result.data['company'] = CompanyServices.get_by_id(result.data['company_id'])
-        result.data['benefit'] = JobBenefitServices.get_by_job_id(result.data['id'])
+        result.data['benefits'] = JobBenefitServices.get_by_job_id(result.data['id'])
 
         return result.data
 
@@ -53,6 +53,17 @@ class JobServices:
             result['skill'] = JobSkillServices.get_by_job_id(result['id'])
 
         return results.data
+
+    @classmethod
+    def get_short_info_by_company(cls, company_id):
+        jobs = Job.query.filter_by(company_id=company_id)
+
+        job_schema = JobSchema(many=True, only=['id', 'name', 'description'])
+
+        results = job_schema.dump(jobs)
+
+        return results.data
+
 
     @classmethod
     def insert(cls, job_info):
