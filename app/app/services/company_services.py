@@ -12,7 +12,8 @@ class CompanyServices:
 
     @classmethod
     def get_all(cls):
-        company_schema = CompanySchema(many=True, only=['id', 'name', 'type_id'])
+        company_schema = CompanySchema(many=True, only=['id', 'name', 'type_id', 'slug', 'avatar',
+                                                        'job_count', 'rating', 'district', 'website', 'overview'])
         all_companies = Company.query.all()
         result = company_schema.dump(all_companies)
         return result.data
