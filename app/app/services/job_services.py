@@ -12,10 +12,11 @@ class JobServices:
 
     @classmethod
     def get_all(cls):
-        job = Job.query.all()
+        # Just select limit to 6 item
+        jobs = Job.query.order_by(Job.id.desc()).limit(6)
 
         job_schema = JobSchema(many=True)
-        results = job_schema.dump(job)
+        results = job_schema.dump(jobs)
 
         for result in results.data:
             result['skill'] = JobSkillServices.get_by_job_id(result['id'])

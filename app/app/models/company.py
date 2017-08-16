@@ -32,7 +32,7 @@ class Company(db.Model):
             setattr(self, key, value)
 
     def init_company(self, name, slug, website, size, rating, bio, overview, email, type_id,
-                     address, google_map, job_count, review_count):
+                     address, google_map, job_count, review_count, district):
         self.name = name
         self.slug = slug
         self.website = website
@@ -46,6 +46,7 @@ class Company(db.Model):
         self.job_count = job_count
         self.review_count = review_count
         self.type_id = type_id
+        self.district = district
 
     def __unicode__(self):
         return self.name

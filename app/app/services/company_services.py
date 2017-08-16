@@ -15,6 +15,7 @@ class CompanyServices:
         company_schema = CompanySchema(many=True, only=['id', 'name', 'type_id', 'slug', 'avatar',
                                                         'job_count', 'rating', 'district', 'website', 'overview'])
         all_companies = Company.query.all()
+
         result = company_schema.dump(all_companies)
         return result.data
 
@@ -57,10 +58,11 @@ class CompanyServices:
         google_map = company_info['google_map']
         job_count = company_info['job_count']
         review_count = company_info['review_count']
+        district = company_info['district']
 
         company = Company()
         company.init_company(name, slug, website, size, rating, bio, overview, email, type_id,
-                             address, google_map, job_count, review_count)
+                             address, google_map, job_count, review_count, district)
 
         db.session.add(company)
         db.session.commit()
@@ -107,6 +109,7 @@ class CompanyServices:
             company.job_count = company_info['job_count']
             company.review_count = company_info['review_count']
             company.type_id = company_info['type_id']
+            company.district = company_info['district']
 
             db.session.commit()
 
